@@ -168,9 +168,10 @@ function addToAll(event) {
     let numberToAdd = parseFloat(document.querySelector('#numberForMath').value);
 
     // Add value to everything on the list.
-    for (let i = 0; i < numbers.length; i++){
-        numbers[i] += numberToAdd;
-    }
+    // for (let i = 0; i < numbers.length; i++){
+    //     numbers[i] += numberToAdd;
+    // }
+    mathLoop(numberToAdd, add);
 
     // Update our html.
     updateUL();
@@ -185,9 +186,10 @@ function subtractFromAll(event) {
     let numberToSubtract = parseFloat(document.querySelector('#numberForMath').value);
     
     // subtract value to everything on the list.
-    for (let i = 0; i < numbers.length; i++){
-        numbers[i] -= numberToSubtract;
-    }
+    // for (let i = 0; i < numbers.length; i++){
+    //     numbers[i] -= numberToSubtract;
+    // }
+    mathLoop(numberToSubtract, subtract);
 
     // Update our html.
     updateUL();
@@ -202,9 +204,10 @@ function multiplyByAll(event) {
     let numberToMultiply = parseFloat(document.querySelector('#numberForMath').value);
     
     // multiply value to everything on the list.
-    for (let i = 0; i < numbers.length; i++){
-        numbers[i] *= numberToMultiply;
-    }
+    // for (let i = 0; i < numbers.length; i++){
+    //     numbers[i] *= numberToMultiply;
+    // }
+    mathLoop(numberToMultiply, multiply);
 
     
     // Update our html.
@@ -220,9 +223,10 @@ function divideFromAll(event) {
     let numberToDivide = parseFloat(document.querySelector('#numberForMath').value);
 
     // Divide value from everything on the list.
-    for (let i = 0; i < numbers.length; i++){
-        numbers[i] /= numberToDivide;
-    }
+    // for (let i = 0; i < numbers.length; i++){
+    //     numbers[i] /= numberToDivide;
+    // }
+    mathLoop(numberToDivide, divide);
 
 
     // Update our html.
@@ -238,9 +242,10 @@ function exponentiateAll(event) {
     let numberExponentiate = parseFloat(document.querySelector('#numberForMath').value);
 
     //Exponentiate each item on the list by the value.
-    for (let i = 0; i < numbers.length; i++){
-        numbers[i] **= numberExponentiate;
-    }
+    // for (let i = 0; i < numbers.length; i++){
+    //     numbers[i] **= numberExponentiate;
+    // }
+    mathLoop(numberExponentiate, exponentiate);
 
     // Update our html.
     updateUL();
@@ -279,4 +284,28 @@ function addToUL(numberToAppend) {
 function clearInput(){
     const inputLine = document.querySelector('#list-number').value;
     inputLine = '';
+}
+
+function mathLoop(numberToOperate, oper){
+    for (let i = 0; i < numbers.length; i++){
+        switch (oper) {
+            case add:
+                numbers[i] += numberToOperate;
+                break;
+            case subtract:
+                numbers[i] -= numberToOperate;
+                break; 
+            case multiply:
+                numbers[i] *= numberToOperate;
+                break;
+            case divide:
+                numbers[i] /= numberToOperate;
+                break;
+            case exponentiate:
+                numbers[i] **= numberToOperate;
+                break;
+            default:
+                numbers[i] += numberToOperate;
+        }
+    }
 }
