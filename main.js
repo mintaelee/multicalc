@@ -47,6 +47,10 @@ function init() {
     // When the user clicks the exponentiate button, exponentiate each item by the value.
     document.querySelector('#exponentiate')
         .addEventListener('click', exponentiateAll);
+
+    document.querySelectorAll('.calc-button').forEach((button) => {
+        button.addEventListener('click', calculatorButton);
+    });
 }
 
 /*
@@ -54,6 +58,56 @@ function init() {
 # = List Management
 # ========================================================
 */
+
+function calculatorButton(event) {
+    // Make sure page doesn't reload on button press.
+    event.preventDefault();
+
+    let currentInput = document.querySelector('#list-number').value;
+
+    let id = event.target.id;
+
+    switch (id) {
+        case 'calc-1':
+            document.querySelector('#list-number').value += '1';
+            break;
+        case 'calc-2':
+            document.querySelector('#list-number').value += '2';
+            break;
+        case 'calc-3':
+            document.querySelector('#list-number').value += '3';
+            break;
+        case 'calc-4':
+            document.querySelector('#list-number').value += '4';
+            break;
+        case 'calc-5':
+            document.querySelector('#list-number').value += '5';
+            break;
+        case 'calc-6':
+            document.querySelector('#list-number').value += '6';
+            break;
+        case 'calc-7':
+            document.querySelector('#list-number').value += '7';
+            break;
+        case 'calc-8':
+            document.querySelector('#list-number').value += '8';
+            break;
+        case 'calc-9':
+            document.querySelector('#list-number').value += '9';
+            break;
+        case 'calc-0':
+            document.querySelector('#list-number').value += '0';
+            break;
+        case 'calc-dec':
+            document.querySelector('#list-number').value += '.';
+            break;
+        case 'calc-neg':
+            if (currentInput !== ''){
+                document.querySelector('#list-number').value = -parseFloat(document.querySelector('#list-number').value);
+            }
+            break;
+    }
+}
 
 // Append to the list.
 function appendToList(event) {
@@ -165,13 +219,15 @@ function addToAll(event) {
     event.preventDefault();
 
     // Grab value to add.
-    let numberToAdd = parseFloat(document.querySelector('#numberForMath').value);
+    let numberToAdd = document.querySelector('#numberForMath').value;
 
     // Add value to everything on the list.
     // for (let i = 0; i < numbers.length; i++){
     //     numbers[i] += numberToAdd;
     // }
-    mathLoop(numberToAdd, add);
+    if (numberToAdd !== ''){
+        mathLoop(parseFloat(numberToAdd), 'add');
+    }
 
     // Update our html.
     updateUL();
@@ -183,13 +239,15 @@ function subtractFromAll(event) {
     event.preventDefault();
     
     // Grab value to add.
-    let numberToSubtract = parseFloat(document.querySelector('#numberForMath').value);
+    let numberToSubtract = document.querySelector('#numberForMath').value;
     
     // subtract value to everything on the list.
     // for (let i = 0; i < numbers.length; i++){
     //     numbers[i] -= numberToSubtract;
     // }
-    mathLoop(numberToSubtract, subtract);
+    if (numberToSubtract !== ''){
+        mathLoop(parseFloat(numberToSubtract), 'subtract');
+    }
 
     // Update our html.
     updateUL();
@@ -201,13 +259,16 @@ function multiplyByAll(event) {
     event.preventDefault();
     
     // Grab value to multiply.
-    let numberToMultiply = parseFloat(document.querySelector('#numberForMath').value);
+    let numberToMultiply = document.querySelector('#numberForMath').value;
     
     // multiply value to everything on the list.
     // for (let i = 0; i < numbers.length; i++){
     //     numbers[i] *= numberToMultiply;
     // }
-    mathLoop(numberToMultiply, multiply);
+    if(numberToMultiply !== ''){
+        mathLoop(parseFloat(numberToMultiply), 'multiply');
+
+    }
 
     
     // Update our html.
@@ -220,13 +281,16 @@ function divideFromAll(event) {
     event.preventDefault();
 
     // Grab value to add.
-    let numberToDivide = parseFloat(document.querySelector('#numberForMath').value);
+    let numberToDivide = document.querySelector('#numberForMath').value;
 
     // Divide value from everything on the list.
     // for (let i = 0; i < numbers.length; i++){
     //     numbers[i] /= numberToDivide;
     // }
-    mathLoop(numberToDivide, divide);
+    if(numberToDivide !== ''){
+        mathLoop(parseFloat(numberToDivide), 'divide');
+
+    }
 
 
     // Update our html.
@@ -239,13 +303,15 @@ function exponentiateAll(event) {
     event.preventDefault();
 
     // Grab value to add.
-    let numberExponentiate = parseFloat(document.querySelector('#numberForMath').value);
+    let numberExponentiate = document.querySelector('#numberForMath').value;
 
     //Exponentiate each item on the list by the value.
     // for (let i = 0; i < numbers.length; i++){
     //     numbers[i] **= numberExponentiate;
     // }
-    mathLoop(numberExponentiate, exponentiate);
+    if(numberExponentiate !== ''){
+        mathLoop(parseFloat(numberExponentiate), 'exponentiate');
+    }
 
     // Update our html.
     updateUL();
@@ -289,19 +355,19 @@ function clearInput(){
 function mathLoop(numberToOperate, oper){
     for (let i = 0; i < numbers.length; i++){
         switch (oper) {
-            case add:
+            case 'add':
                 numbers[i] += numberToOperate;
                 break;
-            case subtract:
+            case 'subtract':
                 numbers[i] -= numberToOperate;
                 break; 
-            case multiply:
+            case 'multiply':
                 numbers[i] *= numberToOperate;
                 break;
-            case divide:
+            case 'divide':
                 numbers[i] /= numberToOperate;
                 break;
-            case exponentiate:
+            case 'exponentiate':
                 numbers[i] **= numberToOperate;
                 break;
             default:
